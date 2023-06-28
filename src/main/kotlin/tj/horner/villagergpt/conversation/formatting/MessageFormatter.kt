@@ -26,7 +26,7 @@ object MessageFormatter {
     }
 
     private fun playerComponent(): Component {
-        return Component.text("You").color(NamedTextColor.DARK_AQUA)
+        return Component.text("Vous").color(NamedTextColor.DARK_AQUA)
     }
 
     private fun villagerComponent(villager: Villager): Component {

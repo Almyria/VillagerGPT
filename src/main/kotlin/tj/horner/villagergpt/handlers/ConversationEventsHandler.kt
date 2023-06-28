@@ -24,9 +24,9 @@ import tj.horner.villagergpt.events.VillagerConversationStartEvent
 class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
     @EventHandler
     fun onConversationStart(evt: VillagerConversationStartEvent) {
-        val message = Component.text("You are now in a conversation with ")
+        val message = Component.text("Vous êtes maintenant en conversation avec ")
             .append(evt.conversation.villager.name().color(NamedTextColor.AQUA))
-            .append(Component.text(". Send a chat message to get started and use /ttvend to end it"))
+            .append(Component.text(". Envoyez un message de chat pour commencer et utilisez /ttvend pour y mettre fin."))
             .decorate(TextDecoration.ITALIC)
 
         evt.conversation.player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -34,14 +34,14 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
         evt.conversation.villager.isAware = false
         evt.conversation.villager.lookAt(evt.conversation.player)
 
-        plugin.logger.info("Conversation started between ${evt.conversation.player.name} and ${evt.conversation.villager.name}")
+        plugin.logger.info("La conversation s'est engagée entre ${evt.conversation.player.name} et ${evt.conversation.villager.name}")
     }
 
     @EventHandler
     fun onConversationEnd(evt: VillagerConversationEndEvent) {
-        val message = Component.text("Your conversation with ")
+        val message = Component.text("Votre conversation avec ")
             .append(evt.villager.name().color(NamedTextColor.AQUA))
-            .append(Component.text(" has ended"))
+            .append(Component.text(" est terminée"))
             .decorate(TextDecoration.ITALIC)
 
         evt.player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -49,7 +49,7 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
         evt.villager.resetOffers()
         evt.villager.isAware = true
 
-        plugin.logger.info("Conversation ended between ${evt.player.name} and ${evt.villager.name}")
+        plugin.logger.info("La conversation s'est terminée entre ${evt.player.name} et ${evt.villager.name}")
     }
 
     @EventHandler
@@ -60,7 +60,7 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
         // Villager is in a conversation with another player
         val existingConversation = plugin.conversationManager.getConversation(villager)
         if (existingConversation != null && existingConversation.player.uniqueId != evt.player.uniqueId) {
-            val message = Component.text("This villager is in a conversation with ")
+            val message = Component.text("Ce villageois est en conversation avec ")
                 .append(existingConversation.player.displayName())
                 .decorate(TextDecoration.ITALIC)
 
@@ -75,7 +75,7 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
         evt.isCancelled = true
 
         if (villager.profession == Villager.Profession.NONE) {
-            val message = Component.text("You can only speak to villagers with a profession")
+            val message = Component.text("Vous ne pouvez parler aux villageois que s'ils ont une profession.")
                 .decorate(TextDecoration.ITALIC)
 
             evt.player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -92,9 +92,9 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
         evt.isCancelled = true
 
         if (conversation.pendingResponse) {
-            val message = Component.text("Please wait for ")
+            val message = Component.text("Veuillez attendre ")
                 .append(conversation.villager.name().color(NamedTextColor.AQUA))
-                .append(Component.text(" to respond"))
+                .append(Component.text(" pour répondre"))
                 .decorate(TextDecoration.ITALIC)
 
             evt.player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -119,9 +119,9 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
                 }
             }
         } catch(e: Exception) {
-            val message = Component.text("Something went wrong while getting ")
+            val message = Component.text("Un problème s'est produit lors de la réponse de ")
                 .append(villager.name().color(NamedTextColor.AQUA))
-                .append(Component.text("'s response. Please try again"))
+                .append(Component.text(". Réessaies plus tard"))
                 .decorate(TextDecoration.ITALIC)
 
             evt.player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -135,7 +135,7 @@ class ConversationEventsHandler(private val plugin: VillagerGPT) : Listener {
     @EventHandler
     fun onConversationMessage(evt: VillagerConversationMessageEvent) {
         if (!plugin.config.getBoolean("log-conversations")) return
-        plugin.logger.info("Message between ${evt.conversation.player.name} and ${evt.conversation.villager.name}: ${evt.message}")
+        plugin.logger.info("Messages entre ${evt.conversation.player.name} et ${evt.conversation.villager.name}: ${evt.message}")
     }
 
     @EventHandler

@@ -21,7 +21,7 @@ class ClearCommand(private val plugin: VillagerGPT) : SuspendingCommandExecutor 
 
         val conversation = plugin.conversationManager.getConversation(player)
         if (conversation == null) {
-            val message = Component.text("You are not currently in a conversation. Use /ttv to start one")
+            val message = Component.text("Vous n'êtes pas en train de participer à une conversation. Utilisez /ttv pour en commencer une")
                 .decorate(TextDecoration.ITALIC)
 
             player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
@@ -30,7 +30,7 @@ class ClearCommand(private val plugin: VillagerGPT) : SuspendingCommandExecutor 
 
         conversation.reset()
 
-        val message = Component.text("Your conversation has been cleared")
+        val message = Component.text("Votre conversation a été supprimée")
             .decorate(TextDecoration.ITALIC)
         player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
 

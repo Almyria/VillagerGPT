@@ -43,7 +43,7 @@ class TradeOfferProcessor(private val logger: Logger) : ConversationMessageProce
                     val tradeMessage = chatFormattedRecipe(trade)
                     messageComponent.append(tradeMessage)
                 } catch(e: Exception) {
-                    logger.log(Level.WARNING, "Chat response contained invalid trade: $response", e)
+                    logger.log(Level.WARNING, "La réponse au chat contient des échanges non valides: $response", e)
                     messageComponent.append(invalidTradeComponent(response))
                 }
             } else {
@@ -106,8 +106,8 @@ class TradeOfferProcessor(private val logger: Logger) : ConversationMessageProce
 
     private fun invalidTradeComponent(rawTrade: String): Component {
         return Component.text()
-            .content("[Invalid Trade]")
-            .hoverEvent(HoverEvent.showText(Component.text("The response contained a recipe for an invalid trade. Here is the attempted recipe:\n\n$rawTrade")))
+            .content("[Troc invalide]")
+            .hoverEvent(HoverEvent.showText(Component.text("La réponse contenait une recette pour un troc non valide. Voici la recette tentée:\n\n$rawTrade")))
             .color(NamedTextColor.RED)
             .build()
     }

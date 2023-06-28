@@ -21,7 +21,7 @@ class EndCommand(private val plugin: VillagerGPT) : SuspendingCommandExecutor {
 
         val conversation = plugin.conversationManager.getConversation(player)
         if (conversation == null) {
-            val message = Component.text("You are not currently in a conversation. Use /ttv to start one.")
+            val message = Component.text("Vous n'êtes pas en train de participer à une conversation. Utilisez /ttv pour en commencer une.")
                 .decorate(TextDecoration.ITALIC)
 
             player.sendMessage(ChatMessageTemplate.withPluginNamePrefix(message))
